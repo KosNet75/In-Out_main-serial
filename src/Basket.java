@@ -1,6 +1,6 @@
 
 import java.io.*;
-    import java.util.*;
+import java.util.*;
 
 public class Basket implements Serializable {
 
@@ -28,7 +28,6 @@ public class Basket implements Serializable {
 
   public void printCart() {
     for (int i = 0; i < getProducts().size(); i++) {
-      // Проверка на введенные продукты и печатаем только которые купили
       if (getTotalPrice().get(i) != null) {
         System.out.println(getProducts().get(i) + ": "
             + (getTotalPrice().get(i))
@@ -54,6 +53,7 @@ public class Basket implements Serializable {
     System.out.println(saveBin);
   }
 
+
   static void loadFromBinFile(File file) {
     Basket loadBin = new Basket();
     try (FileInputStream fis = new FileInputStream(file);
@@ -65,18 +65,13 @@ public class Basket implements Serializable {
     System.out.println(loadBin);
   }
 
-  public List<String> getProducts() { return products;
-  }
-
-  public void setProducts(List<String> products) {
-    Basket.products = products;
+  public List<String> getProducts() {
+    return products;
   }
 
   public List<Integer> getPrices() {
     return prices;
   }
-
-
 
   public Map<Integer, Integer> getTotalPrice() {
     return totalPrice;
@@ -85,11 +80,11 @@ public class Basket implements Serializable {
 
   @Override
   public String toString() {
-    return "Baske{" +
-        "products=" + products +
-        ", prices=" + prices +
-        ", totalPrice=" + totalPrice +
-        '}';
+    return "Корзина[" +
+        "продукты = " + products +
+        ", цена = " + prices +
+        ", HashMap = " + totalPrice +
+        ']';
   }
 
 }
