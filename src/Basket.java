@@ -1,89 +1,73 @@
-
 import java.io.*;
 import java.util.*;
 
 public class Basket implements Serializable {
 
-  private static List<String> products;
-  private static List<Integer> prices;
-  private static final Map<Integer, Integer> totalPrice = new HashMap<>();
+  private static Map<Integer, Integer> totalPrice = new HashMap<>();
 
-  public Basket(List<String> products, List<Integer> prices) {
-    Basket.products = products;
-    Basket.prices = prices;
-  }
+  public Basket(Map<Integer, Integer> totalPrice) {
 
-  public Basket() {
-
-  }
-
-  public void addToCart(int productNum, int amount) {
-    if (totalPrice.containsKey(productNum)) {
-      totalPrice.put(productNum, totalPrice.get(productNum) + amount);
-    } else {
-      totalPrice.put(productNum, amount);
-    }
-    saveBin(new File("basket.bin"));
-  }
-
-  public void printCart() {
-    for (int i = 0; i < getProducts().size(); i++) {
-      if (getTotalPrice().get(i) != null) {
-        System.out.println(getProducts().get(i) + ": "
-            + (getTotalPrice().get(i))
-            + " шт " + getPrices().get(i) + " руб/шт "
-            + getTotalPrice().get(i) * getPrices().get(i) + " руб в сумме");
-      }
-    }
-  }
-
-
-  public void saveBin(File file) {
-
-    Basket saveBin = new Basket();
-    try (FileOutputStream os = new FileOutputStream(file);
-        ObjectOutputStream oos = new ObjectOutputStream(os)) {
-
-      oos.writeObject(saveBin);
-
-    } catch (Exception ex) {
-      System.out.println("ошибка");
-    }
-    System.out.println("Данные сохранены");
-    System.out.println(saveBin);
+    Basket.totalPrice = totalPrice;
   }
 
 
   static void loadFromBinFile(File file) {
-    Basket loadBin = new Basket();
-    try (FileInputStream fis = new FileInputStream(file);
-        ObjectInputStream ois = new ObjectInputStream(fis)) {
-      loadBin = (Basket) ois.readObject();
-    } catch (Exception ex) {
-      System.out.println(ex.getMessage());
+    try {
+      FileInputStream fis = new FileInputStream(file);
+      ObjectInputStream ois = new ObjectInputStream(fis);
+      totalPrice = (HashMap) ois.readObject();
+      ois.close();
+      fis.close();
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
+      return;
+    } catch (ClassNotFoundException c) {
+      System.out.println("Ошибка!!!");
+      c.printStackTrace();
+      return;
     }
-    System.out.println(loadBin);
   }
 
-  public List<String> getProducts() {
-    return products;
+  public void addToCart(int productNum, int productCount) {
+    if (totalPrice.containsKey(productNum)) {
+      totalPrice.put(productNum, totalPrice.get(productNum) + productCount);
+    } else {
+      totalPrice.put(productNum, productCount);
+    }
+
   }
 
-  public List<Integer> getPrices() {
-    return prices;
+  public void saveBin(File file) throws IOException {
+    FileOutputStream fos =
+        new FileOutputStream(file);
+    ObjectOutputStream oos = new ObjectOutputStream(fos);
+    oos.writeObject(totalPrice);
+    oos.close();
+    fos.close();
+    System.out.print("Данные сохранены.");
   }
 
-  public Map<Integer, Integer> getTotalPrice() {
+  public void printCart() {
+    for (int i = 0; i < getTotalPrice().size(); i++) {
+      if (getTotalPrice().get(i) != null) {
+        System.out.println(getTotalPrice().get(i) + ": "
+            + (getTotalPrice().get(i))
+            + " шт " + getTotalPrice().get(i) + " руб/шт "
+            + getTotalPrice().get(i) * getTotalPrice().get(i) + " руб в сумме");
+
+      }
+    }
+  }
+
+  public static Map<Integer, Integer> getTotalPrice() {
     return totalPrice;
   }
 
 
   @Override
   public String toString() {
-    return "Корзина[" +
-        "продукты = " + products +
-        ", цена = " + prices +
-        ", HashMap = " + totalPrice +
+
+    return " HashMap = [" + totalPrice +
         ']';
   }
 
