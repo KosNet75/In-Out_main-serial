@@ -47,28 +47,19 @@ public class Basket implements Serializable {
     System.out.print("Данные сохранены.");
   }
 
-  public void printCart() {
-    for (int i = 0; i < getTotalPrice().size(); i++) {
-      if (getTotalPrice().get(i) != null) {
-        System.out.println(getTotalPrice().get(i) + ": "
-            + (getTotalPrice().get(i))
-            + " шт " + getTotalPrice().get(i) + " руб/шт "
-            + getTotalPrice().get(i) * getTotalPrice().get(i) + " руб в сумме");
-
+  public void printCart(List<String> products,List<Integer> prices) {
+    for (int i = 0; i < products.size(); i++) {
+      if (Basket.getTotalPrice().get(i) != null) {
+        int sumProducts = Basket.getTotalPrice().get(i) * prices.get(i);
+        System.out.println(products.get(i) + "  " + Basket.getTotalPrice().get(i) + "кг/шт  "
+            + prices.get(i) + " руб. за кг/шт     всего на: " + sumProducts + "руб.");
       }
     }
-  }
+    }
+ // }
 
   public static Map<Integer, Integer> getTotalPrice() {
     return totalPrice;
-  }
-
-
-  @Override
-  public String toString() {
-
-    return " HashMap = [" + totalPrice +
-        ']';
   }
 
 }
