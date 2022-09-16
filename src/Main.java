@@ -15,8 +15,6 @@ public class Main {
 
     Basket basket = new Basket(Basket.getTotalPrice());
 
-
-
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("____________________");
@@ -35,7 +33,7 @@ public class Main {
       Basket.loadFromBinFile(new File("basket.bin"));
       System.out.println("\nКорзина загружена.");
 
-      basket.printCart(products,prices);
+      basket.printCart(products, prices);
     } else {
       System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
     }
@@ -61,7 +59,6 @@ public class Main {
 
         basket.addToCart(productNumber, productCount);
         basket.saveBin(new File("basket.bin"));
-
 
 
       } catch (NumberFormatException e) {

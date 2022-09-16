@@ -47,7 +47,7 @@ public class Basket implements Serializable {
     System.out.print("Данные сохранены.");
   }
 
-  public void printCart(List<String> products,List<Integer> prices) {
+  public void printCart(List<String> products, List<Integer> prices) {
     for (int i = 0; i < products.size(); i++) {
       if (Basket.getTotalPrice().get(i) != null) {
         int sumProducts = Basket.getTotalPrice().get(i) * prices.get(i);
@@ -55,8 +55,7 @@ public class Basket implements Serializable {
             + prices.get(i) + " руб. за кг/шт     всего на: " + sumProducts + "руб.");
       }
     }
-    }
- // }
+  }
 
   public static Map<Integer, Integer> getTotalPrice() {
     return totalPrice;
