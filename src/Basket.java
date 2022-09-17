@@ -1,85 +1,57 @@
+
 import java.io.*;
 import java.util.*;
 
 public class Basket implements Serializable {
 
-  public Map<Integer, Integer> totalPrice = new HashMap<>();
+  private static final long SerialVersionUID = 1L;
+  private final Map<Integer, Integer> amountProduct;
 
-  public Basket(Map<Integer, Integer> totalPrice) {
+  private List<Integer> prices;
+  private List<String> products;
 
-    Basket.Goo = totalPrice;
+  public Basket(List<String> products, List<Integer> prices, Map<Integer, Integer> amountProduct) {
+    this.prices = prices;
+    this.products = products;
+    this.amountProduct = amountProduct;
   }
 
-  static void loadFromBinFile(File file) {
-    try {
-      FileInputStream fis = new FileInputStream(file);
-      ObjectInputStream ois = new ObjectInputStream(fis);
-      Basket.Goo = (HashMap) ois.readObject();
-      ois.close();
-      fis.close();
-      setTotalPrice(Basket.Goo);
-      Basket.setTotalPrice(Basket.Goo);
-    } catch (IOException ioe) {
-      ioe.printStackTrace();
-      return;
-    } catch (ClassNotFoundException c) {
-      System.out.println("Ошибка!!!");
-      c.printStackTrace();
-      return;
-    }
-  }
-
-  public void addToCart(int productNum, int productCount) {
-
-    if (Goo == null) {
-      Basket.Goo = new HashMap<>();
-      getTotalPrice().putAll(Goo);
-    }
-
-    if (Goo.containsKey(productNum)) {
-
-      Goo.put(productNum, Goo.get(productNum) + productCount);
-    } else {
-
-      Goo.put(productNum, productCount);
-    }
+  public void addToCart(int productNum, int quantity) {
+    amountProduct.merge(productNum, quantity, Integer::sum);
 
   }
 
-  public void saveBin(File file) throws IOException {
-    FileOutputStream fos =
-        new FileOutputStream(file);
-    ObjectOutputStream oos = new ObjectOutputStream(fos);
-    oos.writeObject(Basket.Goo);
-    oos.close();
-    fos.close();
-    System.out.print("Данные сохранены.");
-  }
-
-  public void printCart(List<String> products, List<Integer> prices) {
+  public void printCart() {
+    int All = 0;
     for (int i = 0; i < products.size(); i++) {
-      if (Basket.Goo.get(i) != null) {
-        int sumProducts = Basket.Goo.get(i) * prices.get(i);
-        System.out.println(products.get(i) + " " + Basket.Goo.get(i) + "кг/шт  "
-            + prices.get(i) + " руб. за кг/шт     всего на: " + sumProducts + "руб.");
+      if (amountProduct.get(i) != null) {
+        System.out.println(products.get(i) + " " + amountProduct.get(i) + "кг/шт  "
+            + prices.get(i) + " руб. за кг/шт     всего на: " + (amountProduct.get(i) * prices.get(i)) + "руб.");
+              All +=  (amountProduct.get(i) * prices.get(i));
       }
     }
+    System.out.println("Всего: " + All);
   }
 
-  public static void setTotalPrice(Map<Integer, Integer> totalPrice) {
-    totalPrice.putAll(Goo);
+  protected void saveBin(File file) throws IOException {
+    try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(file))) {
+      writer.writeObject(this);
+      writer.flush();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  public static Basket loadFromBinFile(File file) throws IOException, ClassCastException {
+    Basket load = null;
+    try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(file))) {
+      load = (Basket) reader.readObject();
+      load.printCart();
+    } catch (IOException io) {
+      throw new IOException(io);
+    } catch (ClassCastException | ClassNotFoundException cc) {
+      cc.printStackTrace();
+    }
+    return load;
   }
 
-  public Map<Integer, Integer> getTotalPrice() {
-    return totalPrice;
-  }
-
-  public static Map<Integer, Integer> Goo;
-
-  {
-    getTotalPrice();
-  }
 }
-
-
-
