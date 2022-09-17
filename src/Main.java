@@ -39,6 +39,9 @@ public class Main {
 
     } else {
       System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
+
+      basket.saveBin(new File("basket.bin"));
+
     }
 
     while (true) {
@@ -93,3 +96,5 @@ public class Main {
 
   }
 }
+
+
