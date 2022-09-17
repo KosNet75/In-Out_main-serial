@@ -46,10 +46,10 @@ public class Main {
 //      Basket.Goo.putAll(basket.getTotalPrice());
 //      basket.getTotalPrice().putAll(Basket.Goo);
 
-   //   basket.getTotalPrice().putAll(Basket.Goo);
+      //   basket.getTotalPrice().putAll(Basket.Goo);
 
       basket.saveBin(new File("basket.bin"));
-  //    Basket.Goo.putAll(basket.getTotalPrice());
+      //    Basket.Goo.putAll(basket.getTotalPrice());
 
 //      Basket.Goo.putAll(basket.getTotalPrice());
 //      basket.getTotalPrice().putAll(Basket.Goo);
@@ -108,62 +108,3 @@ public class Main {
   }
 }
 
-//import java.io.*;
-//import java.util.*;
-//
-//public class Main {
-//  public static void main(String[] args) throws IOException {
-//    Scanner sc = new Scanner(System.in);
-//    File file = new File("basket.bin");
-//
-//    String[] products = {"Хлеб", "Сыр", "Гречневая крупа", "Яблоки", "Помидоры", "Огурцы"};
-//    int[] prices = {40, 250, 100, 80, 200, 120};
-//
-//    Basket basket = new Basket(prices, products);
-//
-//    System.out.println("Список доступных товаров:\n");
-//    for (int i = 0; i < products.length; i++) {
-//      System.out.println((i + 1) + "." + " " + products[i] + " " + prices[i] + " руб./шт.");
-//    }
-//
-//    int prodNum;
-//    int prodCount;
-//
-//    if (file.exists()) {
-//      try {
-//        Basket.loadFromBinFile(file);
-//      } catch (IOException e) {
-//        throw new IOException(e);
-//      }
-//    } else {
-//      System.out.println("Ваша корзина пуста. Наполните корзину товарами.");
-//      file = new File("basket.bin");
-//    }
-//
-//    while (true) {
-//      System.out.println("\nВыберите товар и кол-во, либо введите 'end' для завершения");
-//      try {
-//        String insert = sc.nextLine();
-//        if ("end".equals(insert)) {
-//          break;
-//        }
-//
-//        String[] parts = insert.split(" ");
-//
-//        prodNum = Integer.parseInt(parts[0]) - 1;
-//        prodCount = Integer.parseInt(parts[1]);
-//
-//      } catch (NumberFormatException e) {
-//        System.out.println("Ошибка! Нужно вводить только числа!");
-//        continue;
-//      }
-//      basket.addToCart(prodNum, prodCount);
-//
-//    }
-//    basket.printCart();
-//    Basket save = new Basket(prices, products);
-//    basket.saveBin(file, save);
-//
-//    sc.close();
-//  }
-//}
