@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,16 +30,14 @@ public class Main {
     File f = new File("basket.bin");
     if (f.isFile()) {
 
-//      Basket.loadFromBinFile(new File("basket.bin"));
-//      Basket.setTotalPrice(Basket.Goo);
       Basket.loadFromBinFile(new File("basket.bin"));
 
       System.out.println("\nКорзина загружена.");
 
-      System.out.println("Goo = " + Basket.Goo);
+      //System.out.println("Goo = " + Basket.Goo);
       //System.out.println(Basket.totalPrice(Basket.Goo));
 
-      basket.printCart(products, prices);//////////////////////////////////////////
+      basket.printCart(products, prices);
 
 
     } else {
