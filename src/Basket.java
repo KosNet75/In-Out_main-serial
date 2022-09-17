@@ -63,7 +63,6 @@ public class Basket implements Serializable {
         System.out.println(products.get(i) + " " + Basket.Goo.get(i) + "кг/шт  "
             + prices.get(i) + " руб. за кг/шт     всего на: " + sumProducts + "руб.");
       }
-
     }
   }
 
