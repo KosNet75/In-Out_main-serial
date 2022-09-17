@@ -70,9 +70,7 @@ public class Basket implements Serializable {
     return totalPrice;
   }
 
-  public static Map<Integer, Integer> Goo;
-
-  {
+  public static Map<Integer, Integer> Goo;{
     getTotalPrice();
   }
 }
