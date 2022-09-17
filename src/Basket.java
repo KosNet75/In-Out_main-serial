@@ -7,8 +7,8 @@ public class Basket implements Serializable {
   private static final long SerialVersionUID = 1L;
   private final Map<Integer, Integer> amountProduct;
 
-  private List<Integer> prices;
-  private List<String> products;
+  private final List<Integer> prices;
+  private final List<String> products;
 
   public Basket(List<String> products, List<Integer> prices, Map<Integer, Integer> amountProduct) {
     this.prices = prices;
@@ -30,7 +30,7 @@ public class Basket implements Serializable {
               All +=  (amountProduct.get(i) * prices.get(i));
       }
     }
-    System.out.println("Всего: " + All);
+    System.out.println("Всего: " + All + " руб.");
   }
 
   protected void saveBin(File file) throws IOException {
