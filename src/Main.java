@@ -8,7 +8,7 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     String inputNum = "";
-    int sumProducts = 0;
+    int sumProducts;
     int sum = 0;
     List<String> products = List.of("Хлеб", "Мясо", "Молоко", "Крупа", "Соль");
     List<Integer> prices = List.of(35, 250, 80, 40, 30);
@@ -33,9 +33,6 @@ public class Main {
       Basket.loadFromBinFile(new File("basket.bin"));
 
       System.out.println("\nКорзина загружена.");
-
-      //System.out.println("Goo = " + Basket.Goo);
-      //System.out.println(Basket.totalPrice(Basket.Goo));
 
       basket.printCart(products, prices);
 
