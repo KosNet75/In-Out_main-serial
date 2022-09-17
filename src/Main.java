@@ -17,26 +17,20 @@ public class Main {
     Basket basket = new Basket(products, prices, amountProduct);
     Scanner scanner = new Scanner(System.in);
 
-    System.out.println("____________________");
-    System.out.println("В наличии продукты:");
-    System.out.println("____________________");
+    System.out.println("____________________\n" + "В наличии продукты:" + "\n____________________");
 
     for (int i = 0; i < products.size(); i++) {
       System.out.println(
-          (i + 1) + "." + products.get(i) + " " + prices.get(i)
-              + "кг/шт руб");
+          (i + 1) + ". " + products.get(i) + " " + prices.get(i) + " кг/шт руб");
     }
 
-        File f = new File("basket.bin");
+    File f = new File("basket.bin");
     if (f.isFile()) {
-      Basket.loadFromBinFile(new File("basket.bin"));
+      basket = Basket.loadFromBinFile(f);
       System.out.println("\nКорзина загружена.");
-
-
     } else {
       System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
-
-      basket.saveBin(new File("basket.bin"));
+      f = new File("basket.bin");
     }
 
     while (true) {
@@ -46,6 +40,10 @@ public class Main {
         System.out.print("\nВведите позицию покупаемого товара [1-5]: > ");
 
         inputNum = scanner.nextLine();
+        if ("end".equals(inputNum)) {
+          break;
+        }
+
         if (Integer.parseInt(inputNum) > products.size() || Integer.parseInt(inputNum) < 1) {
           System.out.println("Нет такого номера товара!");
           continue;
@@ -54,24 +52,24 @@ public class Main {
         System.out.print("Введите количество покупаемого: > ");
 
         String inputLot = scanner.nextLine();
+        if ("end".equals(inputLot)) {
+          break;
+        }
+
         int productNumber = Integer.parseInt(inputNum) - 1;//
         int quantity = Integer.parseInt(inputLot);
 
         basket.addToCart(productNumber, quantity);
         basket.printCart();
 
-        basket.saveBin(new File("basket.bin"));
-
-
+        basket.saveBin(f);
       } catch (NumberFormatException e) {
-        if ("end".equals(inputNum)) {
-          basket.saveBin(new File("basket.bin"));
-          System.out.println("\nКОРЗИНА:");
-          basket.printCart();
-          break;
-
-          }
-        }
+        e.printStackTrace();
       }
     }
+    basket.saveBin(f);
+    System.out.println("\nКОРЗИНА:");
+    basket.printCart();
+    scanner.close();
   }
+}
