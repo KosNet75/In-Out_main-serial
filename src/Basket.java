@@ -4,13 +4,11 @@ import java.util.*;
 public class Basket implements Serializable {
 
   public Map<Integer, Integer> totalPrice = new HashMap<>();
+
   public Basket(Map<Integer, Integer> totalPrice) {
 
     Basket.Goo = totalPrice;
   }
-
-
-
 
   static void loadFromBinFile(File file) {
     try {
@@ -57,28 +55,24 @@ public class Basket implements Serializable {
     for (int i = 0; i < products.size(); i++) {
       if (Basket.Goo.get(i) != null) {
         int sumProducts = Basket.Goo.get(i) * prices.get(i);
-        System.out.println(products.get(i) + " ---- " + Basket.Goo.get(i) + "кг/шт  "
+        System.out.println(products.get(i) + " " + Basket.Goo.get(i) + "кг/шт  "
             + prices.get(i) + " руб. за кг/шт     всего на: " + sumProducts + "руб.");
       }
 
     }
   }
-  // setTotalPrice(totalPrice).putAll(Goo);
 
-    public static void setTotalPrice(Map<Integer, Integer> totalPrice) {
-      totalPrice.putAll(Goo);
+  public static void setTotalPrice(Map<Integer, Integer> totalPrice) {
+    totalPrice.putAll(Goo);
   }
 
   public Map<Integer, Integer> getTotalPrice() {
     return totalPrice;
   }
 
+  public static Map<Integer, Integer> Goo;
 
-  public static Map<Integer, Integer> Goo; {
+  {
     getTotalPrice();
   }
-
-
 }
-
-
