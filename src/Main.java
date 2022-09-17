@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -38,21 +36,11 @@ public class Main {
 
       basket.printCart(products, prices);
 
-
     } else {
       System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
-      //oos.writeObject(totalPrice);
-
-//      Basket.Goo.putAll(basket.getTotalPrice());
-//      basket.getTotalPrice().putAll(Basket.Goo);
-
-      //   basket.getTotalPrice().putAll(Basket.Goo);
 
       basket.saveBin(new File("basket.bin"));
-      //    Basket.Goo.putAll(basket.getTotalPrice());
 
-//      Basket.Goo.putAll(basket.getTotalPrice());
-//      basket.getTotalPrice().putAll(Basket.Goo);
     }
 
     while (true) {
