@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
 
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     String inputNum = "";
     int sumProducts = 0;
     int sum = 0;
@@ -31,13 +31,15 @@ public class Main {
     File f = new File("basket.bin");
     if (f.isFile()) {
 
+//      Basket.loadFromBinFile(new File("basket.bin"));
+//      Basket.setTotalPrice(Basket.Goo);
       Basket.loadFromBinFile(new File("basket.bin"));
 
 
       System.out.println("\nКорзина загружена.");
 
       System.out.println("Goo = " + Basket.Goo);
-
+      //System.out.println(Basket.totalPrice(Basket.Goo));
 
       basket.printCart(products, prices);//////////////////////////////////////////
 
@@ -73,13 +75,16 @@ public class Main {
 
       } catch (NumberFormatException e) {
         if ("end".equals(inputNum)) {
+          basket.saveBin(new File("basket.bin"));
+          Basket.loadFromBinFile(new File("basket.bin"));
+          Basket.setTotalPrice(Basket.Goo);
           System.out.println("КОРЗИНА:");
           for (int i = 0; i < products.size(); i++) {
-            if (basket.getTotalPrice().get(i) != null) {
-              sumProducts = basket.getTotalPrice().get(i) * prices.get(i);
+            if (Basket.Goo.get(i) != null) {
+              sumProducts = Basket.Goo.get(i) * prices.get(i);
               sum = sum + sumProducts;
               System.out.println(
-                  products.get(i) + "  [" + basket.getTotalPrice().get(i) + "кг/шт]  "
+                  products.get(i) + "  [" + Basket.Goo.get(i) + "кг/шт]  "
                       + prices.get(i) + " руб. за кг/шт     всего на: " + sumProducts + "руб.");
 
             }
