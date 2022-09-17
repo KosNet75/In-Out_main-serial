@@ -9,7 +9,7 @@ public class Main {
 
 
   public static void main(String[] args) throws IOException {
-    String inputNum = "";
+    String inputNum;
     Map<Integer, Integer> amountProduct = new HashMap<>();
     List<String> products = List.of("Хлеб", "Мясо", "Молоко", "Крупа", "Соль");
     List<Integer> prices = List.of(35, 250, 80, 40, 30);
