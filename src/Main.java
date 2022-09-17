@@ -56,13 +56,11 @@ public class Main {
           break;
         }
 
-        int productNumber = Integer.parseInt(inputNum) - 1;//
+        int productNumber = Integer.parseInt(inputNum) - 1;
         int quantity = Integer.parseInt(inputLot);
 
         basket.addToCart(productNumber, quantity);
         basket.printCart();
-
-        basket.saveBin(f);
       } catch (NumberFormatException e) {
         e.printStackTrace();
       }
