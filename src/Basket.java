@@ -26,8 +26,9 @@ public class Basket implements Serializable {
     for (int i = 0; i < products.size(); i++) {
       if (amountProduct.get(i) != null) {
         System.out.println(products.get(i) + " " + amountProduct.get(i) + "кг/шт  "
-            + prices.get(i) + " руб. за кг/шт     всего на: " + (amountProduct.get(i) * prices.get(i)) + "руб.");
-              All +=  (amountProduct.get(i) * prices.get(i));
+            + prices.get(i) + " руб. за кг/шт     всего на: " + (amountProduct.get(i) * prices.get(
+            i)) + "руб.");
+        All += (amountProduct.get(i) * prices.get(i));
       }
     }
     System.out.println("Всего: " + All + " руб.");
@@ -41,6 +42,7 @@ public class Basket implements Serializable {
       e.printStackTrace();
     }
   }
+
   public static Basket loadFromBinFile(File file) throws IOException, ClassCastException {
     Basket load = null;
     try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(file))) {
