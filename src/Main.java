@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -26,16 +24,15 @@ public class Main {
     if (f.isFile()) {
       Basket.loadFromTxtFile(f);
 
-      System.out.println(Basket.loadFromTxtFile(f));
-
       for (int i = 0; i < (Basket.loadFromTxtFile(f)).length; i++) {
         String[] asd = Basket.loadFromTxtFile(f);
-        System.out.println((Basket.loadFromTxtFile(f))[i]);
         int d = Integer.parseInt(asd[i]);
         basket.addToCart(i, d);
       }
 
       System.out.println("\nКорзина загружена.");
+      System.out.println("\nКОРЗИНА:");
+      basket.printCart();
 
     } else {
       System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
@@ -80,7 +77,6 @@ public class Main {
     basket.printCart();
     scanner.close();
   }
-
 
 }
 
