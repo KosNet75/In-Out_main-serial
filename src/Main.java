@@ -14,7 +14,7 @@ public class Main {
     List<String> products = List.of("Хлеб", "Мясо", "Молоко", "Крупа", "Соль");
     List<Integer> prices = List.of(35, 250, 80, 40, 30);
 
-    Basket basket = new Basket(products, prices, amountProduct);
+    Basket basket = new Basket(products, prices);
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("____________________\n" + "В наличии продукты:" + "\n____________________");
@@ -27,6 +27,7 @@ public class Main {
     File f = new File("basket.txt");
     if (f.isFile()) {
       Basket.loadFromTxtFile(f);
+
       System.out.println("\nКорзина загружена.");
     } else {
       System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
@@ -71,6 +72,8 @@ public class Main {
     basket.printCart();
     scanner.close();
   }
+
+
 }
 
 
