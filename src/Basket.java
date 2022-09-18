@@ -59,7 +59,6 @@ public class Basket {
       amountProduct.put(i, Integer.parseInt(arrayLine[i]));
 
     }
-
   }
 }
 
