@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Basket implements Serializable {
+public class Basket{
   private static Map<Integer, Integer> amountProduct;
 
   private final List<Integer> prices;
@@ -51,12 +51,10 @@ public class Basket implements Serializable {
         }
 
         String[] arrayLine = Objects.requireNonNull(line).split(" ");
-        System.out.println("000000000   " + arrayLine[0]);
 
         for (int i = 0; i < arrayLine.length; i++) {
           amountProduct.put(i,Integer.parseInt(arrayLine[i]));
         }
-        System.out.println(Objects.requireNonNull(line));
       }
   }
 
