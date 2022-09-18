@@ -3,14 +3,15 @@ import java.util.*;
 
 public class Basket {
 
-  private static Map<Integer, Integer> amountProduct;
+  private Map<Integer, Integer> amountProduct;
   private final List<Integer> prices;
   private final List<String> products;
 
-  public Basket(List<String> products, List<Integer> prices) {
+  public Basket(List<String> products, List<Integer> prices, Map<Integer, Integer> amountProduct) {
     this.prices = prices;
     this.products = products;
-    amountProduct = new HashMap<>();
+    this.amountProduct = amountProduct;
+  //  this.amountProduct = new HashMap<>();
   }
 
   public void addToCart(int productNum, int quantity) {
@@ -46,19 +47,23 @@ public class Basket {
     }
   }
 
-  protected static void loadFromTxtFile(File textFile) throws IOException {
+  protected static HashMap<Integer, Integer> loadFromTxtFile(File textFile) throws IOException {
     String line = null;
     try (BufferedReader reader = new BufferedReader(new FileReader(textFile))) {
       line = reader.readLine();
     } catch (IOException e) {
       e.printStackTrace();
     }
-
+    HashMap<Integer,Integer> new1 = new HashMap<>();
     String[] arrayLine = Objects.requireNonNull(line).split(" ");
     for (int i = 0; i < arrayLine.length; i++) {
-      amountProduct.put(i, Integer.parseInt(arrayLine[i]));
+      new1.put(i, Integer.parseInt(arrayLine[i]));
+
 
     }
+    return new1;
   }
+
+
 }
 
