@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class Main {
 
-
   public static void main(String[] args) throws IOException {
     String inputNum;
     List<String> products = List.of("Хлеб", "Мясо", "Молоко", "Крупа", "Соль");
@@ -23,15 +22,13 @@ public class Main {
     File f = new File("basket.txt");
     if (f.isFile()) {
       Basket.loadFromTxtFile(f);
-
-      for (int i = 0; i < (Basket.loadFromTxtFile(f)).length; i++) {
-        String[] asd = Basket.loadFromTxtFile(f);
-        int d = Integer.parseInt(asd[i]);
-        basket.addToCart(i, d);
+      String[] temp = Basket.loadFromTxtFile(f);
+      for (int i = 0; i < temp.length; i++) {
+        int tempAmount = Integer.parseInt(temp[i]);
+        basket.addToCart(i, tempAmount);
       }
 
       System.out.println("\nКорзина загружена.");
-      System.out.println("\nКОРЗИНА:");
       basket.printCart();
 
     } else {

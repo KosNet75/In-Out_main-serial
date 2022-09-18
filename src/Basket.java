@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Basket {
 
-  HashMap<Integer, Integer> amountProduct = new HashMap<>();
+  private HashMap<Integer, Integer> amountProduct = new HashMap<>();
   private final List<Integer> prices;
   private final List<String> products;
 
