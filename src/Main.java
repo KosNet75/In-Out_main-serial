@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -11,8 +12,7 @@ public class Main {
     String inputNum;
     List<String> products = List.of("Хлеб", "Мясо", "Молоко", "Крупа", "Соль");
     List<Integer> prices = List.of(35, 250, 80, 40, 30);
-    HashMap<Integer,Integer> amountProduct = new HashMap<>();
-    Basket basket = new Basket(products, prices, amountProduct);
+    Basket basket = new Basket(products, prices);
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("____________________\n" + "В наличии продукты:" + "\n____________________");
@@ -25,9 +25,16 @@ public class Main {
     File f = new File("basket.txt");
     if (f.isFile()) {
       Basket.loadFromTxtFile(f);
-     // amountProduct = Basket.loadFromTxtFile(f);
+
       System.out.println(Basket.loadFromTxtFile(f));
-      amountProduct = Basket.loadFromTxtFile(f);
+
+      for (int i = 0; i < (Basket.loadFromTxtFile(f)).length; i++) {
+        String[] asd = Basket.loadFromTxtFile(f);
+        System.out.println((Basket.loadFromTxtFile(f))[i]);
+        int d = Integer.parseInt(asd[i]);
+        basket.addToCart(i, d);
+      }
+
       System.out.println("\nКорзина загружена.");
 
     } else {
