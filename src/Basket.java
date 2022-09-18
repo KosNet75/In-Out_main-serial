@@ -6,7 +6,6 @@ public class Basket implements Serializable {
 
   private static final long SerialVersionUID = 1L;
   private final Map<Integer, Integer> amountProduct;
-
   private final List<Integer> prices;
   private final List<String> products;
 
