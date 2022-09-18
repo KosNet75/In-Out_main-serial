@@ -50,7 +50,6 @@ public class Main {
         }
 
         System.out.print("Введите количество покупаемого: > ");
-
         String inputLot = scanner.nextLine();
         if ("end".equals(inputLot)) {
           break;
