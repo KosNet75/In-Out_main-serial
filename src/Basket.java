@@ -10,8 +10,8 @@ public class Basket {
 
   public Basket(List<String> products, List<Integer> prices,
       HashMap<Integer, Integer> amountProduct) {
-    this.prices = prices;
-    this.products = products;
+    Basket.prices = prices;
+    Basket.products = products;
     this.amountProduct = amountProduct;
   }
 
@@ -20,11 +20,7 @@ public class Basket {
   }
 
   public void addToCart(int productNum, int quantity) throws IOException {
-    System.out.println("\nПРОВЕРКА = " + amountProduct);
     amountProduct.merge(productNum, quantity, Integer::sum);
-
-    System.out.println("\nПРОВЕРКА = " + amountProduct);
-
   }
 
   public void printCart() {

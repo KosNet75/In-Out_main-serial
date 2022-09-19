@@ -21,7 +21,6 @@ public class Main {
           (i + 1) + ". " + products.get(i) + " " + prices.get(i) + " кг/шт руб");
     }
 
-
     File f = new File("basket.txt");
     if (f.isFile()) {
       basket.amountProduct = Basket.loadFromTxtFile(f);
