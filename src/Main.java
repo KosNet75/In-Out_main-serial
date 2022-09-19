@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,9 +8,10 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     String inputNum;
+    HashMap<Integer, Integer> amountProduct = new HashMap<>();
     List<String> products = List.of("Хлеб", "Мясо", "Молоко", "Крупа", "Соль");
     List<Integer> prices = List.of(35, 250, 80, 40, 30);
-    Basket basket = new Basket(products, prices);
+    Basket basket = new Basket(products, prices, amountProduct);
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("____________________\n" + "В наличии продукты:" + "\n____________________");
@@ -19,17 +21,11 @@ public class Main {
           (i + 1) + ". " + products.get(i) + " " + prices.get(i) + " кг/шт руб");
     }
 
+
     File f = new File("basket.txt");
     if (f.isFile()) {
-      Basket.loadFromTxtFile(f);
-      String[] temp = Basket.loadFromTxtFile(f);
-      for (int i = 0; i < temp.length; i++) {
-        int tempAmount = Integer.parseInt(temp[i]);
-        basket.addToCart(i, tempAmount);
-      }
-
+      basket.amountProduct = Basket.loadFromTxtFile(f);
       System.out.println("\nКорзина загружена.");
-      basket.printCart();
 
     } else {
       System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
