@@ -65,9 +65,7 @@ public class Basket {
       e.printStackTrace();
     }
     String[] temp = Objects.requireNonNull(line).split(" ");
-
     for (int i = 0; i < temp.length; i++) {
-
       basket.amountProduct.put(i, (Integer.parseInt(temp[i])));
 
     }
