@@ -21,17 +21,17 @@ public class Main {
           (i + 1) + ". " + products.get(i) + " " + prices.get(i) + " кг/шт руб");
     }
 
+
+
     File f = new File("basket.txt");
     if (f.isFile()) {
-      Basket.loadFromTxtFile(f);
-      //System.out.println(Basket.loadFromTxtFile(f));
+      basket = Basket.loadFromTxtFile(f);
       System.out.println("\nКорзина загружена.");
-
     } else {
-
       System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
       f = new File("basket.txt");
     }
+//
     while (true) {
       System.out.println("Введите 'end' для завершения");
 

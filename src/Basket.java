@@ -4,7 +4,7 @@ import java.util.*;
 public class Basket {
 
 
-  public static HashMap<Integer, Integer> amountProduct = new HashMap<>();
+  public HashMap<Integer, Integer> amountProduct = new HashMap<>();
   public static List<Integer> prices;
   public static List<String> products;
 
@@ -29,7 +29,7 @@ public class Basket {
     for (int i = 0; i < Basket.products.size(); i++) {
       if (amountProduct.get(i) != null) {
         System.out.println(Basket.products.get(i) + " " + amountProduct.get(i) + "кг/шт  "
-            + Basket.prices.get(i) + " руб. за кг/шт     всего на: " + (amountProduct.get(i) * prices.get(
+            + Basket.prices.get(i) + " руб. за кг/шт     всего на: " + (amountProduct.get(i) * Basket.prices.get(
             i)) + "руб.");
         all += (amountProduct.get(i) * Basket.prices.get(i));
       }
@@ -53,26 +53,23 @@ public class Basket {
     }
   }
 
-  //static Basket loadFromTxtFile(File textFile) throws IOException {
-    static void loadFromTxtFile(File textFile) throws IOException {
-    //Basket basket = null;
-      Basket basket = new Basket();
-    String line = null;
-    try (BufferedReader reader = new BufferedReader(new FileReader(textFile))) {
-      line = reader.readLine();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    String[] temp = Objects.requireNonNull(line).split(" ");
-    for (int i = 0; i < temp.length; i++) {
-      basket.amountProduct.put(i, (Integer.parseInt(temp[i])));
-    }
-    System.out.println("\n");
-    basket.printCart();
-     // Basket basket = new Basket();
-    //return basket;
-    //return new Basket();
+      protected static Basket loadFromTxtFile(File textFile) throws IOException {
+        Basket basket = new Basket();
+        String line = null;
+        try (BufferedReader reader = new BufferedReader(new FileReader(textFile))) {
+          line = reader.readLine();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        String[] temp = Objects.requireNonNull(line).split(" ");
+        for (int i = 0; i < temp.length; i++) {
+          basket.amountProduct.put(i, (Integer.parseInt(temp[i])));
+        }
+        System.out.println("\n");
+        basket.printCart();
+        return basket;
+      }
   }
 
-}
+
 
