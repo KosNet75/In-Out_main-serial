@@ -23,14 +23,15 @@ public class Main {
 
     File f = new File("basket.txt");
     if (f.isFile()) {
-      basket.amountProduct = Basket.loadFromTxtFile(f);
+      Basket.loadFromTxtFile(f);
+      //System.out.println(Basket.loadFromTxtFile(f));
       System.out.println("\nКорзина загружена.");
 
     } else {
+
       System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
       f = new File("basket.txt");
     }
-
     while (true) {
       System.out.println("Введите 'end' для завершения");
 

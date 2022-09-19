@@ -4,9 +4,10 @@ import java.util.*;
 public class Basket {
 
 
-  public HashMap<Integer, Integer> amountProduct = new HashMap<>();
+  public static HashMap<Integer, Integer> amountProduct = new HashMap<>();
   public static List<Integer> prices;
   public static List<String> products;
+
 
   public Basket(List<String> products, List<Integer> prices,
       HashMap<Integer, Integer> amountProduct) {
@@ -25,12 +26,12 @@ public class Basket {
 
   public void printCart() {
     int all = 0;
-    for (int i = 0; i < products.size(); i++) {
+    for (int i = 0; i < Basket.products.size(); i++) {
       if (amountProduct.get(i) != null) {
-        System.out.println(products.get(i) + " " + amountProduct.get(i) + "кг/шт  "
-            + prices.get(i) + " руб. за кг/шт     всего на: " + (amountProduct.get(i) * prices.get(
+        System.out.println(Basket.products.get(i) + " " + amountProduct.get(i) + "кг/шт  "
+            + Basket.prices.get(i) + " руб. за кг/шт     всего на: " + (amountProduct.get(i) * prices.get(
             i)) + "руб.");
-        all += (amountProduct.get(i) * prices.get(i));
+        all += (amountProduct.get(i) * Basket.prices.get(i));
       }
     }
     System.out.println("Всего: " + all + " руб.");
@@ -52,8 +53,10 @@ public class Basket {
     }
   }
 
-  static HashMap<Integer, Integer> loadFromTxtFile(File textFile) throws IOException {
-    Basket basket = new Basket();
+  //static Basket loadFromTxtFile(File textFile) throws IOException {
+    static void loadFromTxtFile(File textFile) throws IOException {
+    //Basket basket = null;
+      Basket basket = new Basket();
     String line = null;
     try (BufferedReader reader = new BufferedReader(new FileReader(textFile))) {
       line = reader.readLine();
@@ -63,11 +66,12 @@ public class Basket {
     String[] temp = Objects.requireNonNull(line).split(" ");
     for (int i = 0; i < temp.length; i++) {
       basket.amountProduct.put(i, (Integer.parseInt(temp[i])));
-
     }
     System.out.println("\n");
     basket.printCart();
-    return basket.amountProduct;
+     // Basket basket = new Basket();
+    //return basket;
+    //return new Basket();
   }
 
 }
