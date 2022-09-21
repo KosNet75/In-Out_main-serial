@@ -17,7 +17,6 @@ public class ClientLog {
     public void log(int productNumber, int quantity) {
         logNum.add(productNumber);
         logAmount.add(quantity);
-     //   System.out.println(logNum + " " + logAmount);
     }
 
     public void exportAsCSV(File txtFile) {
