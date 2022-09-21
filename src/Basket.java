@@ -5,14 +5,14 @@ public class Basket {
 
 
   public HashMap<Integer, Integer> amountProduct = new HashMap<>();
-  public static List<Integer> prices;
-  public static List<String> products;
+  public List<Integer> prices;
+  public List<String> products;
 
 
   public Basket(List<String> products, List<Integer> prices,
       HashMap<Integer, Integer> amountProduct) {
-    Basket.prices = prices;
-    Basket.products = products;
+    this.prices = prices;
+    this.products = products;
     this.amountProduct = amountProduct;
   }
 
@@ -26,16 +26,20 @@ public class Basket {
 
   public void printCart() {
     int all = 0;
-    for (int i = 0; i < Basket.products.size(); i++) {
+    System.out.println(products);
+    for (int i = 0; i < amountProduct.size(); i++) {
       if (amountProduct.get(i) != null) {
-        System.out.println(Basket.products.get(i) + " " + amountProduct.get(i) + "кг/шт  "
-            + Basket.prices.get(i) + " руб. за кг/шт     всего на: " + (amountProduct.get(i) * Basket.prices.get(
+        System.out.println(getProducts().get(i) + " " + amountProduct.get(i) + "кг/шт  "
+            + getPrices().get(i) + " руб. за кг/шт     всего на: " + (amountProduct.get(i)
+            * getPrices().get(
             i)) + "руб.");
-        all += (amountProduct.get(i) * Basket.prices.get(i));
+        all += (amountProduct.get(i) * getPrices().get(i));
       }
     }
     System.out.println("Всего: " + all + " руб.");
+
   }
+
 
   protected void saveTxt(File textFile) throws IOException {
     try (PrintWriter writer = new PrintWriter(textFile)) {
@@ -69,7 +73,26 @@ public class Basket {
         basket.printCart();
         return basket;
       }
+
+
+  public List<String> getProducts() {
+    return products;
   }
+
+  public void setProducts(List<String> products) {
+    this.products = products;
+  }
+
+  public List<Integer> getPrices() {
+    return prices;
+  }
+
+  public void setPrices(List<Integer> prices) {
+    this.prices = prices;
+  }
+
+  }
+
 
 
 
