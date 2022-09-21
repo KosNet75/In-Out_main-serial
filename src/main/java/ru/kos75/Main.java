@@ -5,12 +5,76 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
+
 
 public class Main {
 
 
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
+
+
+
+
+
+
+
+
+
+
+    try {
+      // Создается построитель документа
+      DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+      // Создается дерево DOM документа из файла
+      Document document = documentBuilder.parse("shop.xml");
+      // Получаем корневой элемент
+      Node root = document.getDocumentElement();
+      // Просматриваем все подэлементы корневого - т.е. книги
+      NodeList list = root.getChildNodes();
+      for (int i = 0; i < list.getLength(); i++) {
+        Node temp = list.item(i);
+        // Если нода не текст, то это книга - заходим внутрь
+        if (temp.getNodeType() != Node.TEXT_NODE) {
+          NodeList listTemp = temp.getChildNodes();
+          for(int j = 0; j < listTemp.getLength(); j++) {
+            Node tempList = listTemp.item(j);
+            // Если нода не текст, то это один из параметров книги - печатаем
+            if (tempList.getNodeType() != Node.TEXT_NODE) {
+              System.out.println(tempList.getNodeName() + ":" + tempList.getChildNodes().item(0).getTextContent());
+            }
+          }
+          System.out.println("===========>>>>");
+        }
+      }
+
+    } catch (ParserConfigurationException ex) {
+      ex.printStackTrace(System.out);
+    } catch (SAXException ex) {
+      ex.printStackTrace(System.out);
+    } catch (IOException ex) {
+      ex.printStackTrace(System.out);
+    }
+ // }
+//}
+
+
+
+
+
+
+
+
     String inputNum;
     HashMap<Integer, Integer> amountProduct = new HashMap<>();
     List<String> products = List.of("Хлеб", "Мясо", "Молоко", "Крупа", "Соль");
@@ -39,7 +103,7 @@ public class Main {
     //  f = new File("basket.txt");
         f = new File("basket.json");
     }
-//
+
     while (true) {
       System.out.println("Введите 'end' для завершения");
 
