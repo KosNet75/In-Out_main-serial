@@ -133,7 +133,6 @@ public class Main {
             String fileExtension = result.get(5);
             String nameFile = String.join(".", name, fileExtension);
             File f = new File(nameFile);
-            System.out.println("name =   " + f);
             if (Objects.equals(result.get(5), "txt")) {
                 basket.saveTxt(f);
             } else {
