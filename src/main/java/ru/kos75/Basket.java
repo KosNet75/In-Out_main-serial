@@ -70,8 +70,8 @@ public class Basket {
       //System.out.println(temp);
       System.out.println("\nФайл json загружен.");
     } catch (Exception e) {
-
       System.out.println("Файл не найден!");
+
     }
 
   }
@@ -88,7 +88,9 @@ public class Basket {
         writer.print(set + " ");
       }
     } catch (IOException e) {
+      System.out.println("Файл не найден!");
       throw new IOException(e);
+
     }
   }
 
@@ -106,6 +108,7 @@ public class Basket {
         }
         System.out.println("\n");
         basket.printCart();
+        System.out.println("\nФайл txt загружен.");
         return basket;
       }
 

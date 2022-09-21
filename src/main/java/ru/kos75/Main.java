@@ -2,76 +2,52 @@ package ru.kos75;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
+
 import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
 
 
 public class Main {
 
-
-
   public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
 
-
-    Node tempList = null;
+    ArrayList <String> result = new ArrayList<>();
+    Node tempList;
 
 
     try {
-      // Создается построитель документа
       DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-      // Создается дерево DOM документа из файла
       Document document = documentBuilder.parse("shop.xml");
-      // Получаем корневой элемент
       Node root = document.getDocumentElement();
-      // Просматриваем все подэлементы корневого - т.е. книги
       NodeList list = root.getChildNodes();
       for (int i = 0; i < list.getLength(); i++) {
         Node temp = list.item(i);
-        // Если нода не текст, то это книга - заходим внутрь
         if (temp.getNodeType() != Node.TEXT_NODE) {
           NodeList listTemp = temp.getChildNodes();
           for (int j = 0; j < listTemp.getLength(); j++) {
             tempList = listTemp.item(j);
-            // Если нода не текст, то это один из параметров книги - печатаем
             if (tempList.getNodeType() != Node.TEXT_NODE) {
-              System.out.println(tempList.getNodeName() + ":" + tempList.getChildNodes().item(0).getTextContent());
-              System.out.println("111111 " + tempList.getNodeName());
+//              System.out.println(tempList.getNodeName() + ":" + tempList.getChildNodes().item(0).getTextContent());
+              result.add(tempList.getChildNodes().item(0).getTextContent());
             }
           }
-          System.out.println("===========>>>>");
         }
       }
 
-    } catch (ParserConfigurationException ex) {
-      ex.printStackTrace(System.out);
-    } catch (SAXException ex) {
-      ex.printStackTrace(System.out);
-    } catch (IOException ex) {
+    } catch (ParserConfigurationException | IOException | SAXException ex) {
       ex.printStackTrace(System.out);
     }
-    // }
-//}
-
-
-
-
-
-
 
 
     String inputNum;
+    File log = new File(result.get(7));
     HashMap<Integer, Integer> amountProduct = new HashMap<>();
     List<String> products = List.of("Хлеб", "Мясо", "Молоко", "Крупа", "Соль");
     List<Integer> prices = List.of(35, 250, 80, 40, 30);
@@ -87,18 +63,28 @@ public class Main {
     }
 
 
-    File log = new File("Log.csv");
-    //File f = new File("basket.txt");
-    File f = new File("basket.json");
+
+if(!Objects.equals(result.get(0), "false")) {
+    String[] parts = result.get(1).split("\\.");
+    String name = parts[0];
+    String fileExtension = result.get(2);
+    String nameFile = String.join(".", name, fileExtension);
+    File f = new File(nameFile);
+    System.out.println("name =   " + f);
+
     if (f.isFile()) {
-      //   basket = Basket.loadFromTxtFile(f);
-      basket.loadFromJSonFile(f);
-      System.out.println("\nКорзина загружена.");
+        if(Objects.equals(result.get(0), "txt")){
+            basket = Basket.loadFromTxtFile(f);
+        }else { basket.loadFromJSonFile(f);}
+
+        System.out.println("\nКорзина загружена.");
     } else {
-      System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
-      //  f = new File("basket.txt");
-      f = new File("basket.json");
+        System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
+        if(Objects.equals(result.get(0), "txt")){
+            new File("basket.txt");
+        }else { new File("basket.json");;}
     }
+}else {basket = new Basket();}
 
     while (true) {
       System.out.println("Введите 'end' для завершения");
@@ -134,15 +120,31 @@ public class Main {
       }
     }
 
-    // basket.saveTxt(f);
-    basket.saveJSon(f);
-    clientLog.exportAsCSV(new File(String.valueOf(log)));
+      if(!Objects.equals(result.get(3), "false")) {
+          String[] parts = result.get(1).split("\\.");
+          String name = parts[0];
+          String fileExtension = result.get(2);
+          String nameFile = String.join(".", name, fileExtension);
+          File f = new File(nameFile);
+          System.out.println("name =   " + f);
+
+              if(Objects.equals(result.get(0), "txt")){
+                  basket.saveTxt(f);
+              }else { basket.saveJSon(f);}
+
+
+          }
+
+      if(Objects.equals(result.get(6), "true")){
+    clientLog.exportAsCSV(new File(String.valueOf(log)));}
+
     System.out.println("\nКОРЗИНА:");
     basket.printCart();
     scanner.close();
   }
-
 }
+
+
 
 
 
