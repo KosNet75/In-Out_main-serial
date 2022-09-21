@@ -2,9 +2,7 @@ package ru.kos75;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -45,6 +43,7 @@ public class Main {
       ex.printStackTrace(System.out);
     }
 
+      System.out.println(result.get(4));
 
     String inputNum;
     File log = new File(result.get(7));
@@ -61,7 +60,6 @@ public class Main {
       System.out.println(
               (i + 1) + ". " + products.get(i) + " " + prices.get(i) + " кг/шт руб");
     }
-
 
 
 if(!Objects.equals(result.get(0), "false")) {
@@ -121,17 +119,17 @@ if(!Objects.equals(result.get(0), "false")) {
     }
 
       if(!Objects.equals(result.get(3), "false")) {
-          String[] parts = result.get(1).split("\\.");
-          String name = parts[0];
-          String fileExtension = result.get(2);
-          String nameFile = String.join(".", name, fileExtension);
-          File f = new File(nameFile);
-          System.out.println("name =   " + f);
-
-              if(Objects.equals(result.get(0), "txt")){
+              String[] parts = result.get(4).split("\\.");
+              String name = parts[0];
+              String fileExtension = result.get(5);
+              String nameFile = String.join(".", name, fileExtension);
+              File f = new File(nameFile);
+              System.out.println("name =   " + f);
+              if (Objects.equals(result.get(5), "txt")) {
                   basket.saveTxt(f);
-              }else { basket.saveJSon(f);}
-
+              } else {
+                  basket.saveJSon(f);
+              }
 
           }
 
