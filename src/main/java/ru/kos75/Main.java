@@ -25,12 +25,7 @@ public class Main {
   public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
 
 
-
-
-
-
-
-
+    Node tempList = null;
 
 
     try {
@@ -47,11 +42,12 @@ public class Main {
         // Если нода не текст, то это книга - заходим внутрь
         if (temp.getNodeType() != Node.TEXT_NODE) {
           NodeList listTemp = temp.getChildNodes();
-          for(int j = 0; j < listTemp.getLength(); j++) {
-            Node tempList = listTemp.item(j);
+          for (int j = 0; j < listTemp.getLength(); j++) {
+            tempList = listTemp.item(j);
             // Если нода не текст, то это один из параметров книги - печатаем
             if (tempList.getNodeType() != Node.TEXT_NODE) {
               System.out.println(tempList.getNodeName() + ":" + tempList.getChildNodes().item(0).getTextContent());
+              System.out.println("111111 " + tempList.getNodeName());
             }
           }
           System.out.println("===========>>>>");
@@ -65,7 +61,7 @@ public class Main {
     } catch (IOException ex) {
       ex.printStackTrace(System.out);
     }
- // }
+    // }
 //}
 
 
@@ -87,21 +83,21 @@ public class Main {
 
     for (int i = 0; i < products.size(); i++) {
       System.out.println(
-          (i + 1) + ". " + products.get(i) + " " + prices.get(i) + " кг/шт руб");
+              (i + 1) + ". " + products.get(i) + " " + prices.get(i) + " кг/шт руб");
     }
 
 
     File log = new File("Log.csv");
     //File f = new File("basket.txt");
-      File f = new File("basket.json");
+    File f = new File("basket.json");
     if (f.isFile()) {
-   //   basket = Basket.loadFromTxtFile(f);
+      //   basket = Basket.loadFromTxtFile(f);
       basket.loadFromJSonFile(f);
       System.out.println("\nКорзина загружена.");
     } else {
       System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
-    //  f = new File("basket.txt");
-        f = new File("basket.json");
+      //  f = new File("basket.txt");
+      f = new File("basket.json");
     }
 
     while (true) {
@@ -131,15 +127,15 @@ public class Main {
         int quantity = Integer.parseInt(inputLot);
 
         basket.addToCart(productNumber, quantity);
-        clientLog.log(productNumber,quantity);
+        clientLog.log(productNumber, quantity);
         basket.printCart();
       } catch (NumberFormatException e) {
         e.printStackTrace();
       }
     }
 
-   // basket.saveTxt(f);
-      basket.saveJSon(f);
+    // basket.saveTxt(f);
+    basket.saveJSon(f);
     clientLog.exportAsCSV(new File(String.valueOf(log)));
     System.out.println("\nКОРЗИНА:");
     basket.printCart();
