@@ -118,17 +118,10 @@ public class Basket {
         return products;
     }
 
-    public void setProducts(List<String> products) {
-        Basket.products = products;
-    }
-
     public List<Integer> getPrices() {
         return prices;
     }
 
-    public void setPrices(List<Integer> prices) {
-        Basket.prices = prices;
-    }
 
 }
 
