@@ -21,7 +21,6 @@ public class Main {
         ArrayList<String> result = new ArrayList<>();
         Node tempList;
 
-
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document = documentBuilder.parse("shop.xml");
@@ -34,7 +33,6 @@ public class Main {
                     for (int j = 0; j < listTemp.getLength(); j++) {
                         tempList = listTemp.item(j);
                         if (tempList.getNodeType() != Node.TEXT_NODE) {
-//              System.out.println(tempList.getNodeName() + ":" + tempList.getChildNodes().item(0).getTextContent());
                             result.add(tempList.getChildNodes().item(0).getTextContent());
                         }
                     }
@@ -44,8 +42,6 @@ public class Main {
         } catch (ParserConfigurationException | IOException | SAXException ex) {
             ex.printStackTrace(System.out);
         }
-
-        System.out.println(result.get(4));
 
         String inputNum;
         File log = new File(result.get(7));
@@ -65,13 +61,7 @@ public class Main {
 
 
         if (!Objects.equals(result.get(0), "false")) {
-            String[] parts = result.get(1).split("\\.");
-            String name = parts[0];
-            String fileExtension = result.get(2);
-            String nameFile = String.join(".", name, fileExtension);
-            File f = new File(nameFile);
-            System.out.println("name =   " + f);
-
+            File f = new File(String.valueOf(nameFile(result, 1, 2)));
             if (f.isFile()) {
                 if (Objects.equals(result.get(0), "txt")) {
                     basket = Basket.loadFromTxtFile(f);
@@ -81,16 +71,17 @@ public class Main {
 
                 System.out.println("\nКорзина загружена.");
             } else {
-                System.out.println("Файла Корзины не существует! Покупка начнется с '0'!");
+                System.out.println("Файла Корзины не существует! Создана новая корзина.");
                 if (Objects.equals(result.get(0), "txt")) {
                     new File("basket.txt");
                 } else {
                     new File("basket.json");
-                    ;
+
                 }
             }
         } else {
             basket = new Basket();
+            System.out.println("Загрузка корзины запрещена. Создана новая корзина.");
         }
 
         while (true) {
@@ -128,11 +119,7 @@ public class Main {
         }
 
         if (!Objects.equals(result.get(3), "false")) {
-            String[] parts = result.get(4).split("\\.");
-            String name = parts[0];
-            String fileExtension = result.get(5);
-            String nameFile = String.join(".", name, fileExtension);
-            File f = new File(nameFile);
+            File f = new File(String.valueOf(nameFile(result, 4, 5)));
             if (Objects.equals(result.get(5), "txt")) {
                 basket.saveTxt(f);
             } else {
@@ -148,6 +135,14 @@ public class Main {
         System.out.println("\nКОРЗИНА:");
         basket.printCart();
         scanner.close();
+    }
+
+    public static File nameFile(ArrayList<String> result, int a, int b) {
+        String[] parts = result.get(a).split("\\.");
+        String name = parts[0];
+        String fileExtension = result.get(b);
+        String nameFile = String.join(".", name, fileExtension);
+        return new File(nameFile);
     }
 }
 
