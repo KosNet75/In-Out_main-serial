@@ -10,15 +10,15 @@ import com.google.gson.GsonBuilder;
 public class Basket {
 
 
-    public HashMap<Integer, Integer> amountProduct = new HashMap<>();
-    public static List<Integer> prices;
-    public static List<String> products;
+    private HashMap<Integer, Integer> amountProduct = new HashMap<>();
+    private List<Integer> prices;
+    private List<String> products;
 
 
-    public Basket(List<String> products, List<Integer> prices,
+    protected Basket(List<String> products, List<Integer> prices,
                   HashMap<Integer, Integer> amountProduct) {
-        Basket.prices = prices;
-        Basket.products = products;
+        this.prices = prices;
+        this.products = products;
         this.amountProduct = amountProduct;
     }
 
@@ -26,21 +26,21 @@ public class Basket {
 
     }
 
-    public void addToCart(int productNum, int quantity) throws IOException {
+    protected void addToCart(int productNum, int quantity) throws IOException {
         amountProduct.merge(productNum, quantity, Integer::sum);
 
     }
 
-    public void printCart() {
+    protected void printCart() {
         int all = 0;
         System.out.println(products);
-        for (int i = 0; i < amountProduct.size(); i++) {
-            if (amountProduct.get(i) != null) {
-                System.out.println(getProducts().get(i) + " " + amountProduct.get(i) + "кг/шт  "
-                        + getPrices().get(i) + " руб. за кг/шт     всего на: " + (amountProduct.get(i)
+        for (int i = 0; i < getAmountProduct().size(); i++) {
+            if (getAmountProduct().get(i) != null) {
+                System.out.println(getProducts().get(i) + " " + getAmountProduct().get(i) + "кг/шт  "
+                        + getPrices().get(i) + " руб. за кг/шт     всего на: " + (getAmountProduct().get(i)
                         * getPrices().get(
                         i)) + "руб.");
-                all += (amountProduct.get(i) * getPrices().get(i));
+                all += (getAmountProduct().get(i) * getPrices().get(i));
             }
         }
         System.out.println("Всего: " + all + " руб.");
@@ -48,7 +48,7 @@ public class Basket {
     }
 
 
-    public void saveJSon(File textFile) {
+    protected void saveJSon(File textFile) {
         try (Writer writer = new FileWriter(textFile)) {
             Gson gson = new Gson();
             Basket temp = new Basket(products, prices, amountProduct);
@@ -61,7 +61,7 @@ public class Basket {
     }
 
 
-    public void loadFromJSonFile(File textFile) throws RuntimeException {
+    protected void loadFromJSonFile(File textFile) throws RuntimeException {
         try (Reader reader = new FileReader(textFile)) {
 
             GsonBuilder builder = new GsonBuilder();
@@ -114,11 +114,13 @@ public class Basket {
     }
 
 
-    public List<String> getProducts() {
+    private List<String> getProducts() {
         return products;
     }
 
-    public List<Integer> getPrices() {
+    private HashMap<Integer, Integer> getAmountProduct(){return amountProduct;}
+
+    private List<Integer> getPrices() {
         return prices;
     }
 

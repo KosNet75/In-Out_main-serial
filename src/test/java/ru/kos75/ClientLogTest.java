@@ -22,7 +22,7 @@ public class ClientLogTest {
 
         File f = new File("testLog.csv");
         if (f.exists() && !f.isDirectory()) {
-            System.out.println("есть");
+        //    System.out.println("есть");
         }
         Assertions.assertEquals("testLog.csv",
                 "testLog.csv");
