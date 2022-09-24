@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder;
 public class Basket {
 
 
-    private HashMap<Integer, Integer> amountProduct = new HashMap<>();
+    HashMap<Integer, Integer> amountProduct = new HashMap<>();
     private List<Integer> prices;
     private List<String> products;
 
